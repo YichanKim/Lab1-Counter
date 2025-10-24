@@ -85,9 +85,9 @@ Note the following:
 2.	The number of bits in the counter is specified with the parameter WIDTH. It is currently set to 8-bit.
 3.	The always_ff @ (posedge clk) is the way that one specifies a clocked circuit.
 4.	‘<=’ in line 12 and 13 are non-block assignments which should be used within an always_ff block.
-        **• We use '<=', which is a non-block assignment as it means that all registers would be updated simultaneously on the clock edge and not sequentially**
+        • ** We use '<=', which is a non-block assignment as it means that all registers would be updated simultaneously on the clock edge and not sequentially**
 5.	{WIDTH{1’b0}} in line 12 uses the concatenation operator { } to form WIDTH bits of ‘0’. (Can you explain the construct in line 13?)**
-        **• construct in line 13 creates (WIDTH-1) zeros with en, effectively extending en (1 bit) to match WIDTH bits.**
+        • ** construct in line 13 creates (WIDTH-1) zeros with en, effectively extending en (1 bit) to match WIDTH bits.**
 
 Here is the mapping between System Verilog and the counter circuit "synthesized" via Verilator:
 
@@ -138,9 +138,11 @@ Use the + and - icons to adjust the zoom level.  You should see the following.
 Make sure you understand all waveform signals.
 
 Why is the time axis in ps? Does it matter?
-    **• Time is in ps as most clocks are in MHz - GHz range, so picosecond resolution helps ensure accurate edge alignment**
-    **• The time axis's unit does not matter as the circuit is clock based, not time based**
-    **• time is in ps because Verilator uses ps as default time unit**
+    • ** Time is in ps as most clocks are in MHz - GHz range, so picosecond resolution helps ensure accurate edge alignment**
+    
+    • ** The time axis's unit does not matter as the circuit is clock based, not time based**
+    
+    • ** time is in ps because Verilator uses ps as default time unit**
 Congratulations! You have successfully simulated your first System Verilog digital hardware module.
 
 
@@ -173,11 +175,11 @@ Explore what files are created by Verilator in **_obj_dir/ _** and now open in V
 
 ## TEST YOURSELF CHALLENGES:
 1.	Modify the testbench so that you stop counting for 3 cycles once the counter reaches 0x9, and then resume counting.  You may also need to change the stimulus for _rst_.
-        **• You just need to modify the en and rst values in the for loop in the testbench (modify i)**
+        • ** You just need to modify the en and rst values in the for loop in the testbench (modify i)**
 3.	The current counter has a synchronous reset. To implement asynchronous reset, you can change line 11 of counter.sv to detect change in _rst_ signal.  (See notes.)
-        **• Change the counter.sv code to "always_ff @ (posedge clk, posedge rst)" instead to look for a positive edge in rst**
-  	    **• There is a slight bug in Verilog with the implementation of asynchronous reset, where it doesn't reset instantly. This is why asynchronous functions are avoided**
-  	    **• The bug may be due to the fact that res changes on clock cycle, which usually never happens**
+        • ** Change the counter.sv code to "always_ff @ (posedge clk, posedge rst)" instead to look for a positive edge in rst**
+  	    • ** There is a slight bug in Verilog with the implementation of asynchronous reset, where it doesn't reset instantly. This is why asynchronous functions are avoided**
+  	    • ** The bug may be due to the fact that res changes on clock cycle, which usually never happens**
 Make these modification, compile, and run.  Examine the waveform with GTKwave and explain what you see.
 
 You can see from the GTK wave that en=1 on the 5th clock poscycle (i=0, i=1...)
